@@ -31,11 +31,26 @@ namespace Simple_Inventory_Management_System
             if (!Products.Any()) 
             {
                 Console.WriteLine("There are no products yet");
+                return;
             }
             foreach (Product product in Products) 
             {
                 Console.WriteLine(product);
             }
         }
+        public bool Edit(Product product) 
+        {
+            if (product == null) { return false; }
+
+            var existingProduct = Products.FirstOrDefault(p => p.Name == product.Name);
+            if (existingProduct == null)
+                return false;
+
+            existingProduct.Price = product.Price;
+            existingProduct.Quantity = product.Quantity;
+
+            return true;
+        }
+
     }
 }
