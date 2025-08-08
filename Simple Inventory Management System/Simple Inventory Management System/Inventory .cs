@@ -63,7 +63,7 @@ namespace Simple_Inventory_Management_System
             var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
             if (existingProduct != null)
             {
-                Console.WriteLine($"{product}");
+                Console.WriteLine($"{existingProduct}");
                 return;
             }
             Console.WriteLine("There is no product with this name.");
