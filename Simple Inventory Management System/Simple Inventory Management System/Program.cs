@@ -4,7 +4,13 @@
     {
         static void Main(string[] args)
         {
-            Product product = new Product("1",2,2);
+            Inventory inventory = new Inventory();
+            Product product = new Product("ee", 1, 1);
+            inventory.Products.Add(product);
+            foreach (var item in inventory.Products)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
