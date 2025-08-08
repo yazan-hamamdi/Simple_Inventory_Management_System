@@ -28,14 +28,14 @@
 
                         Console.Write("Enter price: ");
                         decimal price;
-                        while (!decimal.TryParse(Console.ReadLine(), out price))
+                        while (!decimal.TryParse(Console.ReadLine(), out price) || price < 1 )
                         {
                             Console.Write("Invalid price, try again: ");
                         }
 
                         Console.Write("Enter quantity: ");
                         int quantity;
-                        while (!int.TryParse(Console.ReadLine(), out quantity))
+                        while (!int.TryParse(Console.ReadLine(), out quantity ) || quantity < 0)
                         {
                             Console.Write("Invalid quantity, try again: ");
                         }
@@ -53,13 +53,13 @@
                         string editName = Console.ReadLine();
 
                         Console.Write("Enter new price: ");
-                        while (!decimal.TryParse(Console.ReadLine(), out price))
+                        while (!decimal.TryParse(Console.ReadLine(), out price) || price < 1)
                         {
                             Console.Write("Invalid price, try again: ");
                         }
 
                         Console.Write("Enter new quantity: ");
-                        while (!int.TryParse(Console.ReadLine(), out quantity))
+                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0 )
                         {
                             Console.Write("Invalid quantity, try again: ");
                         }
@@ -74,7 +74,7 @@
                         Console.Write("Enter the name of the product to delete: ");
                         string deleteName = Console.ReadLine();
 
-                        if (inventory.Delete(new Product(deleteName, 0, 0)))
+                        if (inventory.Delete(new Product(deleteName, 1, 1)))
                             Console.WriteLine("Product deleted successfully.");
                         else
                             Console.WriteLine("Product not found.");
@@ -84,7 +84,7 @@
                         Console.Write("Enter the name of the product to search: ");
                         string searchName = Console.ReadLine();
 
-                        inventory.SearchFor(new Product(searchName, 0, 0));
+                        inventory.SearchFor(new Product(searchName, 1, 1));
                         break;
 
                     case "6":

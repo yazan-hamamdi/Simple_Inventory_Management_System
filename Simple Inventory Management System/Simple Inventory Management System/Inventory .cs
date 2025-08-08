@@ -13,12 +13,21 @@ namespace Simple_Inventory_Management_System
             this.Products = new List<Product>();
         }
         public bool Add(Product product)
-        { 
-            if (product == null)
-            {
+        {
+            if (IsNotValid(product))
                 return false;
+
+            var existingProduct = CheckIfExist(product);
+
+            if (existingProduct != null)
+            {
+                IncreaseQuantity(existingProduct, product.Quantity);
             }
-            Products.Add(product);
+            else
+            {
+                Products.Add(product);
+            }
+
             return true;
         }
         public void DisplayProducts()
@@ -35,9 +44,10 @@ namespace Simple_Inventory_Management_System
         }
         public bool Edit(Product product) 
         {
-            if (product == null) { return false; }
+            if (IsNotValid(product))
+            { return false; }
 
-            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            var existingProduct = CheckIfExist(product);
             if (existingProduct == null)
                 return false;
 
@@ -48,25 +58,60 @@ namespace Simple_Inventory_Management_System
         }
         public bool Delete(Product product) 
         {
-            if (product == null) { return false; }
-            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
-            if (existingProduct != null)
+            if (IsNotValid(product))
+            { return false; }
+            var existingProduct = CheckIfExist(product);
+
+            if (existingProduct == null)
+            { return false; }
+
+            if (existingProduct.Quantity > 1)
+            {
+                DecreaseQuantity(existingProduct);
+                return true;
+            }
+            else
             {
                 Products.Remove(existingProduct);
                 return true;
             }
-            return false;
         }
         public void SearchFor(Product product)
         {
             if (product == null) { return ; }
-            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            var existingProduct = CheckIfExist(product);
             if (existingProduct != null)
             {
                 Console.WriteLine($"{existingProduct}");
                 return;
             }
             Console.WriteLine("There is no product with this name.");
+        }
+        public bool IsNotValid(Product product)
+        {
+            return (product == null || product.Price < 1 || product.Quantity < 0);
+        }
+        public int IncreaseQuantity(Product product ,int quantity = 1)
+        {
+            if (product == null)
+            {
+                return 0;
+            }
+            return product.Quantity += quantity;
+        }
+        public int DecreaseQuantity(Product product, int quantity = 1)
+        {
+            if (product == null || product.Quantity == 0)
+                return 0;
+
+            product.Quantity = Math.Max(0, product.Quantity - quantity);
+            return product.Quantity;
+        }
+
+        public Product CheckIfExist(Product product)
+        {
+            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            return existingProduct;
         }
     }
 }
