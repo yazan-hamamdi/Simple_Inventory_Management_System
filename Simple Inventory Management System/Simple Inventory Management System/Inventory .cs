@@ -8,14 +8,23 @@ namespace Simple_Inventory_Management_System
 {
     public class Inventory
     {
-        public List<Product> products { get; set; }
+        public List<Product> Products { get; private set; }
         public Inventory(List<Product> products)
         {
-            this.products = products;
+            this.Products = products;
         }
         public Inventory()
         {
-            this.products = new List<Product>();
+            this.Products = new List<Product>();
+        }
+        public bool Add(Product product)
+        { 
+            if (product == null)
+            {
+                return false;
+            }
+            Products.Add(product);
+            return true;
         }
     }
 }
