@@ -26,5 +26,16 @@ namespace Simple_Inventory_Management_System
             Products.Add(product);
             return true;
         }
+        public void DisplayProducts()
+        {
+            if (!Products.Any()) 
+            {
+                Console.WriteLine("There are no products yet");
+            }
+            foreach (Product product in Products) 
+            {
+                Console.WriteLine(product);
+            }
+        }
     }
 }
