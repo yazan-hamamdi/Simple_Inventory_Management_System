@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Simple_Inventory_Management_System
 {
     public class Inventory
@@ -61,6 +56,17 @@ namespace Simple_Inventory_Management_System
                 return true;
             }
             return false;
+        }
+        public void SearchFor(Product product)
+        {
+            if (product == null) { return ; }
+            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            if (existingProduct != null)
+            {
+                Console.WriteLine($"{product}");
+                return;
+            }
+            Console.WriteLine("There is no product with this name.");
         }
     }
 }
