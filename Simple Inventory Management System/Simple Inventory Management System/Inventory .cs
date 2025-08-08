@@ -42,7 +42,7 @@ namespace Simple_Inventory_Management_System
         {
             if (product == null) { return false; }
 
-            var existingProduct = Products.FirstOrDefault(p => p.Name == product.Name);
+            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
             if (existingProduct == null)
                 return false;
 
@@ -51,6 +51,16 @@ namespace Simple_Inventory_Management_System
 
             return true;
         }
-
+        public bool Delete(Product product) 
+        {
+            if (product == null) { return false; }
+            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            if (existingProduct != null)
+            {
+                Products.Remove(existingProduct);
+                return true;
+            }
+            return false;
+        }
     }
 }
