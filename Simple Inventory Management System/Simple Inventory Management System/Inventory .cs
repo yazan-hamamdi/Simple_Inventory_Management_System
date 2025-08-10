@@ -21,6 +21,7 @@ namespace Simple_Inventory_Management_System
 
             if (existingProduct != null)
             {
+                existingProduct.Price = product.Price;
                 IncreaseQuantity(existingProduct, product.Quantity);
             }
             else
