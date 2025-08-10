@@ -89,7 +89,7 @@
 
                     case "6":
                         running = false;
-                        Console.WriteLine("Exiting... Goodbye!");
+                        Console.WriteLine("Exiting... ");
                         break;
 
                     default:

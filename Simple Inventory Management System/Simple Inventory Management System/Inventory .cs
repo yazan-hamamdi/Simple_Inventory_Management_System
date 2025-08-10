@@ -42,7 +42,7 @@ namespace Simple_Inventory_Management_System
                 Console.WriteLine(product);
             }
         }
-        public bool Edit(Product product) 
+        public bool Edit(Product product ) 
         {
             if (IsNotValid(product))
             { return false; }
@@ -91,20 +91,28 @@ namespace Simple_Inventory_Management_System
         {
             return (product == null || product.Price < 1 || product.Quantity < 0);
         }
-        public int IncreaseQuantity(Product product ,int quantity = 1)
+        private int IncreaseQuantity(Product product ,int quantity = 1)
         {
-            if (product == null)
+            if (product == null || quantity < 1)
             {
                 return 0;
             }
             return product.Quantity += quantity;
         }
-        public int DecreaseQuantity(Product product, int quantity = 1)
+        private int DecreaseQuantity(Product product, int quantity = 1)
         {
-            if (product == null || product.Quantity == 0)
+            if (product == null || quantity < 1) 
                 return 0;
 
-            product.Quantity = Math.Max(0, product.Quantity - quantity);
+            if (quantity >= product.Quantity)
+            {
+                product.Quantity = 0;
+            }
+            else
+            {
+                product.Quantity -= quantity;
+            }
+
             return product.Quantity;
         }
 
