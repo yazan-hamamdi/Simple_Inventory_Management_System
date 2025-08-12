@@ -26,7 +26,7 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(product.Name);
 
             if (existingProduct != null)
-                throw new InvalidOperationException("Product already exists");
+                throw new InvalidOperationException("Product already exist try to Edit : ");
 
             Products.Add(product);
         }
@@ -44,18 +44,15 @@ namespace SimpleInventoryManagementSystem
             }
         }
 
-        public void Edit(Product product ) 
+        public void Edit(string productName, decimal newPrice, int newQuantity) 
         {
-            if (product == null)
-                throw new ArgumentNullException(nameof(product), "Product cannot be null");
-
-            var existingProduct = GetProductByName(product.Name);
+            var existingProduct = GetProductByName(productName);
 
             if (existingProduct == null)
                 throw new InvalidOperationException("Product does not exist in the inventory");
 
-            existingProduct.Price = product.Price;
-            existingProduct.Quantity = product.Quantity;
+            existingProduct.Price = newPrice;
+            existingProduct.Quantity = newQuantity;
         }
 
         public void Delete(string name) 

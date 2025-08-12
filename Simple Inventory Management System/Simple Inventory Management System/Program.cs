@@ -62,12 +62,8 @@
 
                         try
                         {
-                            inventory.Edit(new Product(Name, Price, Quantity));
+                            inventory.Edit(Name, Price, Quantity);
                             Console.WriteLine("Product updated successfully.");
-                        }
-                        catch (ArgumentNullException ex)
-                        {
-                            Console.WriteLine($"Error: { ex.Message }");
                         }
                         catch (InvalidOperationException ex)
                         {
