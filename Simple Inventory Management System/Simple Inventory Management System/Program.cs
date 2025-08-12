@@ -41,7 +41,11 @@
                         {
                             Console.WriteLine($"Failed to add product: { ex.Message }");
                         }
-                   
+                        catch (InvalidOperationException ex)
+                        {
+                            Console.WriteLine($"Failed to add product: {ex.Message}");
+                        }
+
                         break;
 
                     case "2":

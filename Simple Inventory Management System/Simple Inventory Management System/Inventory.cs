@@ -26,15 +26,9 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(product.Name);
 
             if (existingProduct != null)
-            {
-                existingProduct.Price = product.Price;
-                existingProduct.IncreaseQuantity(product.Quantity);
-            }
-            else
-            {
-                Products.Add(product);
-            }
+                throw new InvalidOperationException("Product already exists");
 
+            Products.Add(product);
         }
 
         public void DisplayProducts()
@@ -62,7 +56,6 @@ namespace SimpleInventoryManagementSystem
 
             existingProduct.Price = product.Price;
             existingProduct.Quantity = product.Quantity;
-
         }
 
         public void Delete(string name) 
