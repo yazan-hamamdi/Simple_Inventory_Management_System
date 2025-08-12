@@ -4,14 +4,17 @@ namespace SimpleInventoryManagementSystem
     public class Inventory
     {
         public List<Product> Products { get; private set; }
+
         public Inventory(List<Product> products)
         {
             this.Products = products;
         }
+
         public Inventory()
         {
             this.Products = new List<Product>();
         }
+
         public bool Add(Product product)
         {
             if (IsNotValid(product))
@@ -31,6 +34,7 @@ namespace SimpleInventoryManagementSystem
 
             return true;
         }
+
         public void DisplayProducts()
         {
             if (!Products.Any()) 
@@ -43,6 +47,7 @@ namespace SimpleInventoryManagementSystem
                 Console.WriteLine(product);
             }
         }
+
         public bool Edit(Product product ) 
         {
             if (IsNotValid(product))
@@ -57,6 +62,7 @@ namespace SimpleInventoryManagementSystem
 
             return true;
         }
+
         public bool Delete(Product product) 
         {
             if (IsNotValid(product))
@@ -77,6 +83,7 @@ namespace SimpleInventoryManagementSystem
                 return true;
             }
         }
+
         public void SearchFor(Product product)
         {
             if (product == null) { return ; }
@@ -88,10 +95,12 @@ namespace SimpleInventoryManagementSystem
             }
             Console.WriteLine("There is no product with this name.");
         }
+
         public bool IsNotValid(Product product)
         {
             return (product == null || product.Price < 1 || product.Quantity < 0);
         }
+
         private int IncreaseQuantity(Product product ,int quantity = 1)
         {
             if (product == null || quantity < 1)
@@ -100,6 +109,7 @@ namespace SimpleInventoryManagementSystem
             }
             return product.Quantity += quantity;
         }
+
         private int DecreaseQuantity(Product product, int quantity = 1)
         {
             if (product == null || quantity < 1) 
@@ -122,5 +132,6 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
             return existingProduct;
         }
+
     }
 }
