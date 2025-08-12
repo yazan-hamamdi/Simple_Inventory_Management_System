@@ -28,7 +28,7 @@ namespace SimpleInventoryManagementSystem
             if (existingProduct != null)
             {
                 existingProduct.Price = product.Price;
-                IncreaseQuantity(existingProduct, product.Quantity);
+                existingProduct.IncreaseQuantity(product.Quantity);
             }
             else
             {
@@ -74,7 +74,7 @@ namespace SimpleInventoryManagementSystem
 
             if (existingProduct.Quantity > 1)
             {
-                DecreaseQuantity(existingProduct);
+                existingProduct.DecreaseQuantity();
             }
             else
             {
@@ -94,32 +94,6 @@ namespace SimpleInventoryManagementSystem
         public bool IsValid(Product product)
         {
             return (product.Price >= 1 && product.Quantity >= 0);
-        }
-
-        private int IncreaseQuantity(Product product ,int quantity = 1)
-        {
-            if (product == null || quantity < 1)
-            {
-                return 0;
-            }
-            return product.Quantity += quantity;
-        }
-
-        private int DecreaseQuantity(Product product, int quantity = 1)
-        {
-            if (product == null || quantity < 1) 
-                return 0;
-
-            if (quantity >= product.Quantity)
-            {
-                product.Quantity = 0;
-            }
-            else
-            {
-                product.Quantity -= quantity;
-            }
-
-            return product.Quantity;
         }
 
         public Product GetProductByName(string name)

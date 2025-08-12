@@ -19,11 +19,37 @@ namespace SimpleInventoryManagementSystem
         public Product(string name) { Name = name; }
 
         public Product() { Name = string.Empty; }
-        
+
+        public int IncreaseQuantity(int quantity = 1)
+        {
+            if (quantity < 1)
+            {
+                return 0;
+            }
+            return this.Quantity += quantity;
+        }
+
+        public int DecreaseQuantity(int quantity = 1)
+        {
+            if (quantity < 1)
+                return 0;
+
+            if (quantity >= this.Quantity)
+            {
+                this.Quantity = 0;
+            }
+            else
+            {
+                this.Quantity -= quantity;
+            }
+
+            return this.Quantity;
+        }
+
         public override string ToString() 
         {
             return $"Product Name is:{Name} Product Price is: {Price} Product Quantity is: {Quantity}";
-        }
+        } 
 
     }
 }
