@@ -1,4 +1,4 @@
-﻿namespace Simple_Inventory_Management_System
+﻿namespace SimpleInventoryManagementSystem
 {
     internal class Program
     {
