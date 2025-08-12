@@ -40,8 +40,20 @@
                             Console.Write("Invalid quantity, try again: ");
                         }
 
-                        inventory.Add(new Product(name, price, quantity));
-                        Console.WriteLine("Product added successfully.");
+                        try
+                        {
+                            inventory.Add(new Product(name, price, quantity));
+                            Console.WriteLine("Product added successfully.");
+                        }
+                        catch (ArgumentNullException ex)
+                        {
+                            Console.WriteLine($"Error: Product is null { ex.Message }");
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Console.WriteLine($"Failed to add product: { ex.Message }");
+                        }
+                   
                         break;
 
                     case "2":
@@ -64,20 +76,36 @@
                             Console.Write("Invalid quantity, try again: ");
                         }
 
-                        if (inventory.Edit(new Product(editName, price, quantity)))
+                        try
+                        {
+                            inventory.Edit(new Product(editName, price, quantity));
                             Console.WriteLine("Product updated successfully.");
-                        else
-                            Console.WriteLine("Product not found.");
+                        }
+                        catch (ArgumentNullException ex)
+                        {
+                            Console.WriteLine($"Error: { ex.Message }");
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            Console.WriteLine($"Error: { ex.Message }");
+                        }
+                                     
                         break;
 
                     case "4":
                         Console.Write("Enter the name of the product to delete: ");
                         string deleteName = Console.ReadLine();
-
-                        if (inventory.Delete(new Product(deleteName, 1, 1)))
-                            Console.WriteLine("Product deleted successfully.");
-                        else
-                            Console.WriteLine("Product not found.");
+ 
+                       try
+                       {
+                           inventory.Delete(deleteName);
+                       Console.WriteLine("Product deleted successfully");
+                       }
+                       catch (InvalidOperationException ex)
+                       {
+                           Console.WriteLine($"Error: {ex.Message}");
+                       }
+                        
                         break;
 
                     case "5":

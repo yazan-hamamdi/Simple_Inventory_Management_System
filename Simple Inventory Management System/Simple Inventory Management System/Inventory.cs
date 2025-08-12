@@ -15,12 +15,15 @@ namespace SimpleInventoryManagementSystem
             this.Products = new List<Product>();
         }
 
-        public bool Add(Product product)
+        public void Add(Product product)
         {
-            if (!IsValid(product))
-                return false;
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "Product cannot be null");
 
-            var existingProduct = CheckIfExist(product);
+            if (!IsValid(product))
+                throw new ArgumentException("Invalid product : Price must be >= 1 and Quantity >= 0");
+
+            var existingProduct = GetProductByName(product.Name);
 
             if (existingProduct != null)
             {
@@ -32,7 +35,6 @@ namespace SimpleInventoryManagementSystem
                 Products.Add(product);
             }
 
-            return true;
         }
 
         public void DisplayProducts()
@@ -48,46 +50,42 @@ namespace SimpleInventoryManagementSystem
             }
         }
 
-        public bool Edit(Product product ) 
+        public void Edit(Product product ) 
         {
-            if (!IsValid(product))
-            { return false; }
+            if (product == null)
+                throw new ArgumentNullException(nameof(product), "Product cannot be null");
 
-            var existingProduct = CheckIfExist(product);
+            var existingProduct = GetProductByName(product.Name);
+
             if (existingProduct == null)
-                return false;
+                throw new InvalidOperationException("Product does not exist in the inventory");
 
             existingProduct.Price = product.Price;
             existingProduct.Quantity = product.Quantity;
 
-            return true;
         }
 
-        public bool Delete(Product product) 
+        public void Delete(string name) 
         {
-            if (!IsValid(product))
-            { return false; }
-            var existingProduct = CheckIfExist(product);
+            var existingProduct = GetProductByName(name);
 
             if (existingProduct == null)
-            { return false; }
+                throw new InvalidOperationException("Product does not exist in the inventory");
 
             if (existingProduct.Quantity > 1)
             {
                 DecreaseQuantity(existingProduct);
-                return true;
             }
             else
             {
                 Products.Remove(existingProduct);
-                return true;
             }
         }
 
         public void SearchFor(Product product)
         {
             if (product == null) { return ; }
-            var existingProduct = CheckIfExist(product);
+            var existingProduct = GetProductByName(product.Name);
             if (existingProduct != null)
             {
                 Console.WriteLine($"{existingProduct}");
@@ -98,7 +96,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool IsValid(Product product)
         {
-            return (product != null && product.Price >= 1 && product.Quantity >= 0);
+            return (product.Price >= 1 && product.Quantity >= 0);
         }
 
         private int IncreaseQuantity(Product product ,int quantity = 1)
@@ -127,9 +125,9 @@ namespace SimpleInventoryManagementSystem
             return product.Quantity;
         }
 
-        public Product CheckIfExist(Product product)
+        public Product GetProductByName(string name)
         {
-            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase));
+            var existingProduct = Products.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
             return existingProduct;
         }
 

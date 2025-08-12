@@ -13,8 +13,10 @@ namespace SimpleInventoryManagementSystem
         {
             Name = name;
             Price = price;
-            this.Quantity = quantity;
+            Quantity = quantity;
         }
+
+        public Product(string name) { Name = name; }
 
         public Product() { Name = string.Empty; }
         
