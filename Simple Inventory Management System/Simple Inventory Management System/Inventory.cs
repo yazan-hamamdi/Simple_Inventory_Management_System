@@ -17,7 +17,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool Add(Product product)
         {
-            if (IsNotValid(product))
+            if (!IsValid(product))
                 return false;
 
             var existingProduct = CheckIfExist(product);
@@ -50,7 +50,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool Edit(Product product ) 
         {
-            if (IsNotValid(product))
+            if (!IsValid(product))
             { return false; }
 
             var existingProduct = CheckIfExist(product);
@@ -65,7 +65,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool Delete(Product product) 
         {
-            if (IsNotValid(product))
+            if (!IsValid(product))
             { return false; }
             var existingProduct = CheckIfExist(product);
 
@@ -96,9 +96,9 @@ namespace SimpleInventoryManagementSystem
             Console.WriteLine("There is no product with this name.");
         }
 
-        public bool IsNotValid(Product product)
+        public bool IsValid(Product product)
         {
-            return (product == null || product.Price < 1 || product.Quantity < 0);
+            return (product != null && product.Price >= 1 && product.Quantity >= 0);
         }
 
         private int IncreaseQuantity(Product product ,int quantity = 1)
