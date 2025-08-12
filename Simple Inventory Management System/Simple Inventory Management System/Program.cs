@@ -112,7 +112,18 @@
                         Console.Write("Enter the name of the product to search: ");
                         string searchName = Console.ReadLine();
 
-                        inventory.SearchFor(new Product(searchName, 1, 1));
+                        try
+                        {
+                            var product = inventory.SearchFor(searchName);
+                            if (product != null)
+                                Console.WriteLine(product);
+                            else
+                                Console.WriteLine("Product not found");
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            Console.WriteLine($"Error: {ex.Message}");
+                        }
                         break;
 
                     case "6":

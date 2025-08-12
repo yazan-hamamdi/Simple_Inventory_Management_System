@@ -82,16 +82,13 @@ namespace SimpleInventoryManagementSystem
             }
         }
 
-        public void SearchFor(Product product)
+        public Product SearchFor(string name)
         {
-            if (product == null) { return ; }
-            var existingProduct = GetProductByName(product.Name);
-            if (existingProduct != null)
-            {
-                Console.WriteLine($"{existingProduct}");
-                return;
-            }
-            Console.WriteLine("There is no product with this name.");
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Product name cannot be null or empty", nameof(name));
+
+            var existingProduct = GetProductByName(name);
+            return existingProduct;
         }
 
         public bool IsValid(Product product)
