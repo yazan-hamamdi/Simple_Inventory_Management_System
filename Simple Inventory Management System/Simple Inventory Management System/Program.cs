@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Inventory inventory = new Inventory();
-            bool running = true;
+            var inventory = new Inventory();
+            var running = true;
 
             while (running)
             {
@@ -23,22 +23,10 @@
                 switch (choice)
                 {
                     case "1":
-                        Console.Write("Enter product name: ");
-                        string name = Console.ReadLine();
 
-                        Console.Write("Enter price: ");
-                        decimal price;
-                        while (!decimal.TryParse(Console.ReadLine(), out price) || price < 1 )
-                        {
-                            Console.Write("Invalid price, try again: ");
-                        }
-
-                        Console.Write("Enter quantity: ");
-                        int quantity;
-                        while (!int.TryParse(Console.ReadLine(), out quantity ) || quantity < 0)
-                        {
-                            Console.Write("Invalid quantity, try again: ");
-                        }
+                        string name = InputHelper.ReadString("Enter product name: ");
+                        decimal price = InputHelper.ReadDecimal("Enter price: ", 1);
+                        int quantity = InputHelper.ReadInt("Enter quantity: ", 0);
 
                         try
                         {
@@ -57,28 +45,20 @@
                         break;
 
                     case "2":
+
                         inventory.DisplayProducts();
+
                         break;
 
                     case "3":
-                        Console.Write("Enter the name of the product to edit: ");
-                        string editName = Console.ReadLine();
 
-                        Console.Write("Enter new price: ");
-                        while (!decimal.TryParse(Console.ReadLine(), out price) || price < 1)
-                        {
-                            Console.Write("Invalid price, try again: ");
-                        }
-
-                        Console.Write("Enter new quantity: ");
-                        while (!int.TryParse(Console.ReadLine(), out quantity) || quantity < 0 )
-                        {
-                            Console.Write("Invalid quantity, try again: ");
-                        }
+                        string Name = InputHelper.ReadString("Enter the name of the product to edit: ");
+                        decimal Price = InputHelper.ReadDecimal("Enter new price: ", 1);
+                        int Quantity = InputHelper.ReadInt("Enter new quantity: ", 0);
 
                         try
                         {
-                            inventory.Edit(new Product(editName, price, quantity));
+                            inventory.Edit(new Product(Name, Price, Quantity));
                             Console.WriteLine("Product updated successfully.");
                         }
                         catch (ArgumentNullException ex)
@@ -93,11 +73,12 @@
                         break;
 
                     case "4":
-                        Console.Write("Enter the name of the product to delete: ");
-                        string deleteName = Console.ReadLine();
- 
-                       try
-                       {
+
+                        string deleteName = InputHelper.ReadString("Enter the name of the product to delete: ");
+
+
+                        try
+                        {
                            inventory.Delete(deleteName);
                        Console.WriteLine("Product deleted successfully");
                        }
@@ -109,8 +90,8 @@
                         break;
 
                     case "5":
-                        Console.Write("Enter the name of the product to search: ");
-                        string searchName = Console.ReadLine();
+
+                        string searchName = InputHelper.ReadString("Enter the name of the product to search: ");
 
                         try
                         {
@@ -124,15 +105,20 @@
                         {
                             Console.WriteLine($"Error: {ex.Message}");
                         }
+
                         break;
 
                     case "6":
+
                         running = false;
                         Console.WriteLine("Exiting... ");
+
                         break;
 
                     default:
+
                         Console.WriteLine("Invalid choice, please try again.");
+
                         break;
                 }
             }
