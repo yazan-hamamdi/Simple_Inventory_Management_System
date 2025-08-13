@@ -3,6 +3,9 @@ namespace SimpleInventoryManagementSystem
 {
     public class Product
     {
+        public const decimal MinPrice = 1;
+
+        public const int MinQuantity = 0;
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -17,8 +20,6 @@ namespace SimpleInventoryManagementSystem
         }
 
         public Product(string name) { Name = name; }
-
-        public Product() { Name = string.Empty; }
 
         public int DecreaseQuantity(int quantity = 1)
         {

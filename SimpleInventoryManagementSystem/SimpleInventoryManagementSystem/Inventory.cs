@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace SimpleInventoryManagementSystem
 {
     public class Inventory
@@ -49,7 +51,7 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(productName);
 
             if (existingProduct == null)
-                throw new InvalidOperationException("Product does not exist in the inventory");
+                throw new KeyNotFoundException("Product does not exist in the inventory");
 
             existingProduct.Price = newPrice;
             existingProduct.Quantity = newQuantity;
@@ -60,7 +62,7 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(name);
 
             if (existingProduct == null)
-                throw new InvalidOperationException("Product does not exist in the inventory");
+                throw new KeyNotFoundException("Product does not exist in the inventory");
 
             if (existingProduct.Quantity > 1)
             {
@@ -83,7 +85,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool IsValid(Product product)
         {
-            return (product.Price >= 1 && product.Quantity >= 0);
+            return product.Price >= Product.MinPrice && product.Quantity >= Product.MinQuantity;
         }
 
         public Product GetProductByName(string name)

@@ -65,7 +65,7 @@
                             inventory.Edit(Name, Price, Quantity);
                             Console.WriteLine("Product updated successfully.");
                         }
-                        catch (InvalidOperationException ex)
+                        catch (KeyNotFoundException ex)
                         {
                             Console.WriteLine($"Error: { ex.Message }");
                         }
@@ -82,7 +82,7 @@
                            inventory.Delete(deleteName);
                        Console.WriteLine("Product deleted successfully");
                        }
-                       catch (InvalidOperationException ex)
+                       catch (KeyNotFoundException ex)
                        {
                            Console.WriteLine($"Error: {ex.Message}");
                        }
