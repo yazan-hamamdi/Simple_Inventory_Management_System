@@ -23,7 +23,7 @@ namespace SimpleInventoryManagementSystem
                 throw new ArgumentNullException(nameof(product), "Product cannot be null");
 
             if (!IsValid(product))
-                throw new ArgumentException("Invalid product : Price must be >= 1 and Quantity >= 0");
+                throw new ArgumentException($"Invalid product : Price must be >= {Product.MinPrice} and Quantity >= {Product.MinQuantity}");
 
             var existingProduct = GetProductByName(product.Name);
 
@@ -74,7 +74,7 @@ namespace SimpleInventoryManagementSystem
             }
         }
 
-        public Product SearchFor(string name)
+        public Product SearchByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Product name cannot be null or empty", nameof(name));

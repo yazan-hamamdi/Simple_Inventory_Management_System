@@ -95,7 +95,7 @@
 
                         try
                         {
-                            var product = inventory.SearchFor(searchName);
+                            var product = inventory.SearchByName(searchName);
                             if (product != null)
                                 Console.WriteLine(product);
                             else

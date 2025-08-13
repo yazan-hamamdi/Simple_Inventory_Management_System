@@ -21,7 +21,7 @@ namespace SimpleInventoryManagementSystem
             return value;
         }
 
-        public static int ReadInt(string str, int minValue = 0)
+        public static int ReadInt(string str, int minValue = int.MinValue)
         {
             int value;
             Console.Write(str);
