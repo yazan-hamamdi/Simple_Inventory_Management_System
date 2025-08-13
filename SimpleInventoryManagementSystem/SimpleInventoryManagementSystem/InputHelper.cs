@@ -10,7 +10,7 @@ namespace SimpleInventoryManagementSystem
             return Console.ReadLine();
         }
 
-        public static decimal ReadDecimal(string str, decimal minValue = 1)
+        public static decimal ReadDecimal(string str, decimal minValue = decimal.MinValue)
         {
             decimal value;
             Console.Write(str);
@@ -21,7 +21,7 @@ namespace SimpleInventoryManagementSystem
             return value;
         }
 
-        public static int ReadInt(string str, int minValue = 0)
+        public static int ReadInt(string str, int minValue = int.MinValue)
         {
             int value;
             Console.Write(str);

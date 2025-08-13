@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace SimpleInventoryManagementSystem
 {
     public class Inventory
@@ -21,7 +23,7 @@ namespace SimpleInventoryManagementSystem
                 throw new ArgumentNullException(nameof(product), "Product cannot be null");
 
             if (!IsValid(product))
-                throw new ArgumentException("Invalid product : Price must be >= 1 and Quantity >= 0");
+                throw new ArgumentException($"Invalid product : Price must be >= {Product.MinPrice} and Quantity >= {Product.MinQuantity}");
 
             var existingProduct = GetProductByName(product.Name);
 
@@ -49,7 +51,7 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(productName);
 
             if (existingProduct == null)
-                throw new InvalidOperationException("Product does not exist in the inventory");
+                throw new KeyNotFoundException("Product does not exist in the inventory");
 
             existingProduct.Price = newPrice;
             existingProduct.Quantity = newQuantity;
@@ -60,7 +62,7 @@ namespace SimpleInventoryManagementSystem
             var existingProduct = GetProductByName(name);
 
             if (existingProduct == null)
-                throw new InvalidOperationException("Product does not exist in the inventory");
+                throw new KeyNotFoundException("Product does not exist in the inventory");
 
             if (existingProduct.Quantity > 1)
             {
@@ -72,7 +74,7 @@ namespace SimpleInventoryManagementSystem
             }
         }
 
-        public Product SearchFor(string name)
+        public Product SearchByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Product name cannot be null or empty", nameof(name));
@@ -83,7 +85,7 @@ namespace SimpleInventoryManagementSystem
 
         public bool IsValid(Product product)
         {
-            return (product.Price >= 1 && product.Quantity >= 0);
+            return product.Price >= Product.MinPrice && product.Quantity >= Product.MinQuantity;
         }
 
         public Product GetProductByName(string name)
